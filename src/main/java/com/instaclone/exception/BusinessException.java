@@ -1,27 +1,48 @@
 package com.instaclone.exception;
 
-import org.springframework.http.ResponseEntity;
+public class BusinessException extends RuntimeException{
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
-public class BadRequestException {
-
-    private final String message;
-
-    public BadRequestException(String message) {
-        throw new 
+    private String errorCode;
+    private String message;
+    public BusinessException(String msg) {
+        super(msg);
+        this.message = msg;
     }
 
+    public BusinessException(String msg, Throwable ex) {
+        super(msg, ex);
+        this.message = msg;
+    }
+
+    public BusinessException(String errorCode, String msg, Throwable ex) {
+        super(msg, ex);
+        this.errorCode = errorCode;
+        this.message = msg;
+    }
+
+
+    public BusinessException(String errCode, String message) {
+        super(errCode);
+        this.errorCode = errCode;
+        this.message = message;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    @Override
     public String getMessage() {
         return message;
     }
 
-    private static Map<String, Object> getAlertParameters(String message) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("message", message);
-        parameters.put("status", 404);
-        return parameters;
+    public void setMessage(String message) {
+        this.message = message;
     }
+
 }

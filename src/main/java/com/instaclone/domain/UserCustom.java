@@ -9,10 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
@@ -30,6 +27,8 @@ public class UserCustom implements UserDetails {
     private String email;
     private String password;
     private Integer status;
+    private Date createdAt;
+    private Date updatedAt;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.DETACH})
     @JoinTable(name = "_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns =
     @JoinColumn(name = "user_id"))
@@ -41,7 +40,9 @@ public class UserCustom implements UserDetails {
 
         return simpleGrantedAuthority;
     }
-
+    public String getUserCustomName(){
+        return this.username;
+    }
     @Override
     public String getPassword() {
         return this.password;

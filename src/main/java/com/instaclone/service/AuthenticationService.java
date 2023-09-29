@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,7 @@ public class AuthenticationService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setStatus(1);
+        user.setCreatedAt(new Date());
         user.setRoles(roleSet);
         userCustomRepository.save(user);
         String jwtToken = jwtService.generateToken(user);
@@ -56,7 +58,7 @@ public class AuthenticationService {
         }
         String jwtToken = jwtService.generateToken(user);
         AuthenticationResponse response = new AuthenticationResponse();
-        response.setUsername(user.getUsername());
+        response.setUsername(user.getUserCustomName());
         response.setToken(jwtToken);
         return response;
     };

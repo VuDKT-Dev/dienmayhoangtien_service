@@ -3,7 +3,7 @@ package com.instaclone.exception;
 public class BusinessException extends RuntimeException{
 
 
-    private String errorCode;
+    private Integer status;
     private String message;
     public BusinessException(String msg) {
         super(msg);
@@ -15,25 +15,25 @@ public class BusinessException extends RuntimeException{
         this.message = msg;
     }
 
-    public BusinessException(String errorCode, String msg, Throwable ex) {
+    public BusinessException(Integer status, String msg, Throwable ex) {
         super(msg, ex);
-        this.errorCode = errorCode;
+        this.status = status;
         this.message = msg;
     }
 
 
-    public BusinessException(String errCode, String message) {
-        super(errCode);
-        this.errorCode = errCode;
+    public BusinessException(Integer status, String message) {
+        super(String.valueOf(status));
+        this.status = status;
         this.message = message;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Override

@@ -5,10 +5,7 @@ import com.instaclone.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -24,5 +21,18 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
         return new ResponseEntity<>(authenticationService.authenticate(request), HttpStatus.OK);
+    }
+
+    @PostMapping("/{activeCode}")
+    public ResponseEntity<String> activeAccount(@PathVariable String activeCode){
+        if(authenticationService.activeAccount(activeCode)){
+            return new ResponseEntity<>("User active successfull", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Something went wrong!!!", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Boolean> forgotPassword(@RequestParam("email") String email){
+        return new ResponseEntity<>(authenticationService.forgotPassword(email), HttpStatus.OK);
     }
 }

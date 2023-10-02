@@ -10,4 +10,5 @@ public interface UserCustomRepository extends JpaRepository<UserCustom, Long> {
     Optional<UserCustom> findByEmail(String email);
 
     Optional<UserCustom> findByActiveCode(String activeCode);
+    Optional<UserCustom> findByForgotPassword(String forgotPassword);
 }

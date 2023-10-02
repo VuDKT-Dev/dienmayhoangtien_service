@@ -8,6 +8,7 @@ import com.instaclone.repository.RoleRepository;
 import com.instaclone.repository.UserCustomRepository;
 import com.instaclone.security.auth.AuthenticationRequest;
 import com.instaclone.security.auth.AuthenticationResponse;
+import com.instaclone.security.auth.ChangePasswordRequest;
 import com.instaclone.security.auth.RegisterRequest;
 import com.instaclone.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.security.Principal;
 import java.util.*;
 
 @Service
@@ -48,7 +51,7 @@ public class AuthenticationService {
         userCustomRepository.save(user);
         String jwtToken = jwtService.generateToken(user);
         AuthenticationResponse response = new AuthenticationResponse();
-        response.setUsername(user.getUsername());
+        response.setUsername(user.getUser());
         response.setToken(jwtToken);
         return response;
     };
@@ -64,7 +67,7 @@ public class AuthenticationService {
         }
         String jwtToken = jwtService.generateToken(user);
         AuthenticationResponse response = new AuthenticationResponse();
-        response.setUsername(user.getUsername());
+        response.setUsername(user.getUser());
         response.setToken(jwtToken);
         return response;
     };
@@ -103,6 +106,31 @@ public class AuthenticationService {
                 userCustomRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
                         "User not found"));
         user.setForgotPassword(genarateCode());
+        userCustomRepository.save(user);
         return true;
     }
+
+    public AuthenticationResponse validForgotCode(String forgotCode) {
+       UserCustom user =
+               userCustomRepository.findByForgotPassword(forgotCode).orElseThrow(() -> new BusinessException("User " +
+               "not found!!!"));
+        String jwtToken = jwtService.generateToken(user);
+        AuthenticationResponse response = new AuthenticationResponse();
+        response.setUsername(user.getUser());
+        response.setToken(jwtToken);
+        return response;
+    }
+
+    public Boolean changePassword(ChangePasswordRequest request, Principal principal) {
+        UserCustom user =
+                userCustomRepository.findByEmail(principal.getName()).orElseThrow(() -> new BusinessException("Email " +
+                        "not found!!!"));
+        if(!request.getPassword().equals(request.getConfirmPassword())){
+            throw new BusinessException("Confirm Password not same!!!");
+        }
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        userCustomRepository.save(user);
+        return true;
+    }
+
 }

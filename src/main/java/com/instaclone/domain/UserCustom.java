@@ -44,6 +44,9 @@ public class UserCustom implements UserDetails {
     private Date createdAt;
     @Column(name = "UPDATED_AT")
     private Date updatedAt;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_detail_id", referencedColumnName = "id")
+    private UserDetail profile;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.DETACH})
     @JoinTable(name = "_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns =
     @JoinColumn(name = "user_id"))

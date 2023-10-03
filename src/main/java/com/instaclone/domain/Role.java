@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -20,4 +21,12 @@ public class Role {
     private String roleName;
     @Column(name = "status")
     private Integer status;
+    @Column(name = "CREATED_AT")
+    private Date createdAt;
+    @Column(name = "UPDATED_AT")
+    private Date updatedAt;
+    @Column(name = "CREATED_BY")
+    private Date createdBy;
+    @Column(name = "UPDATED_BY")
+    private Date updatedBy;
 }

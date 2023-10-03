@@ -1,6 +1,6 @@
 package com.instaclone.service.impl;
 
-import com.instaclone.domain.BaseResponse;
+import com.instaclone.common.respone.BaseResponse;
 import com.instaclone.domain.Chat;
 import com.instaclone.repository.ChatRepository;
 import com.instaclone.service.ChatService;

@@ -1,4 +1,4 @@
-package com.instaclone.domain;
+package com.instaclone.common.respone;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

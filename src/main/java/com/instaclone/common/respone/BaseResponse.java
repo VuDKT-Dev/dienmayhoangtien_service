@@ -1,8 +1,6 @@
-package com.instaclone.domain;
+package com.instaclone.common.respone;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 public class BaseResponse {
      protected ResponseEntity<?> getResponseEntity(Object data){

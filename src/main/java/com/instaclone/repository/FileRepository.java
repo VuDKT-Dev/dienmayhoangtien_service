@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FileRepository extends JpaRepository<MyFile, Long> {
-    MyFile findByUid(Long uid);
+    List<MyFile> findByUid(Long uid);
 
     void deleteByUidAndFileName(Long uid, String fileName);
 

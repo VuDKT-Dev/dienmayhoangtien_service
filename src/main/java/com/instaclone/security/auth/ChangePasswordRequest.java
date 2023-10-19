@@ -1,6 +1,6 @@
 package com.instaclone.security.auth;
 
-public class ChangePasswordRequest {
+public class    ChangePasswordRequest {
     private String password;
     private String confirmPassword;
 

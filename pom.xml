@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>telegram-clone-project</artifactId>
+    <artifactId>dienmayhoangtien_service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>telegram-clone-project</name>
-    <description>telegram-clone-project</description>
+    <name>dienmayhoangtien_service</name>
+    <description>dienmayhoangtien_service</description>
     <properties>
         <java.version>17</java.version>
     </properties>
